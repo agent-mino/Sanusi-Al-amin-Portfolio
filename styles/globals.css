@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.perspective {
+    perspective: 1000px;
+  }
+:root {
+    --accent-blue: #5B8CFF;
+    --accent-purple: #A66CFF;
+    }
+
+
+html, body, #__next {
+height: 100%;
+scroll-behavior: smooth;
+}
+
+
+
+body {
+background-color: #0b0f14;
+color: #f5f5f7;
+font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        }
+
+
+/* Subtle card style */
+.card {
+background: white;
+border-radius: 8px;
+box-shadow: 0 6px 18px rgba(11,17,28,0.06);
+}
+
+
+/* Utilities for accents */
+.text-accentBlue { color: var(--accent-blue); }
+.text-accentPurple { color: var(--accent-purple); }
+.bg-accentBlue { background-color: var(--accent-blue); }
+.bg-accentPurple { background-color: var(--accent-purple); }
+
+/* Responsive */
+@media (min-width: 768px) {
+.max-w-4xl { max-width: 56rem; }
+}
