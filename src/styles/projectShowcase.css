@@ -1,0 +1,340 @@
+@keyframes previewEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.project-showcase {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 28px;
+  margin-top: 36px;
+  align-items: stretch;
+}
+
+.project-showcase__hint {
+  grid-column: 1 / -1;
+  margin: 8px 0 0;
+  font: 500 11px var(--font-mono);
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.hint-touch {
+  display: none;
+}
+
+@media (hover: none) {
+  .hint-pointer {
+    display: none;
+  }
+
+  .hint-touch {
+    display: inline;
+  }
+}
+
+/* —— Left: preview panel (key remount triggers entrance) —— */
+.preview-panel {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  background: var(--soft);
+  overflow: hidden;
+  animation: previewEntrance 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
+  will-change: opacity, transform, filter;
+}
+
+.preview-panel__chrome {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  background: #080808;
+}
+
+.preview-panel__dots {
+  display: flex;
+  gap: 6px;
+}
+
+.preview-panel__dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #333;
+  display: block;
+}
+
+.preview-panel__dots i:first-child {
+  background: #666;
+}
+
+.preview-panel__url {
+  font: 500 10px var(--font-mono);
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.preview-panel__media {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 16 / 9;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+.preview-panel__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+.preview-panel__image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(5, 5, 5, 0.55), transparent 45%);
+  pointer-events: none;
+}
+
+.preview-panel__body {
+  padding: 28px 28px 32px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-panel__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 0 0 14px;
+  font: 500 10px var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.preview-panel__status {
+  color: var(--fg);
+}
+
+.preview-panel__status::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: 1px;
+}
+
+.preview-panel__title {
+  font-size: clamp(28px, 3vw, 42px);
+  letter-spacing: -0.045em;
+  margin: 0 0 14px;
+  line-height: 1.05;
+}
+
+.preview-panel__description {
+  color: var(--text);
+  max-width: 620px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.preview-panel__highlights {
+  flex: 1;
+  margin: 18px 0 22px;
+  padding-left: 18px;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.preview-panel__highlights li + li {
+  margin-top: 6px;
+}
+
+.preview-panel__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+
+.preview-panel__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 22px;
+  color: #fff;
+  text-decoration: none;
+  font: 500 11px var(--font-mono);
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid #444;
+  padding-bottom: 2px;
+  width: fit-content;
+  transition: border-color 0.2s;
+}
+
+.preview-panel__link:hover {
+  border-color: #fff;
+}
+
+/* —— Right: wallet stack (pure CSS physics) ——
+   Back cards peek out below the one in front of them, so each card's
+   title row sits at its bottom edge where it stays visible. */
+.stack-container {
+  --stack-gap: 56px;
+  --card-height: 112px;
+  align-self: start;
+  position: sticky;
+  top: calc(var(--nav-height) + 32px);
+  min-height: calc((var(--total) - 1) * var(--stack-gap) + var(--card-height));
+  isolation: isolate;
+  transition: min-height 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (hover: hover) {
+  .stack-container:hover {
+    --stack-gap: 68px;
+  }
+}
+
+.stack-card {
+  --index: 0;
+  --total: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--card-height);
+  margin: 0;
+  padding: 0 22px 13px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  align-items: end;
+  column-gap: 14px;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  background: linear-gradient(165deg, #141414 0%, #0a0a0a 100%);
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  transform: translateY(calc(var(--index) * var(--stack-gap)))
+    scale(calc(1 - (var(--index) * 0.04)));
+  transform-origin: center bottom;
+  z-index: calc(var(--total) - var(--index));
+  transition:
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    z-index 0.45s,
+    border-color 0.35s,
+    box-shadow 0.35s;
+  will-change: transform;
+}
+
+.stack-card:hover {
+  border-color: #4a4a4a;
+}
+
+.stack-card--active {
+  border-color: rgba(245, 245, 245, 0.85);
+  box-shadow:
+    0 16px 44px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.stack-card:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.stack-card__index {
+  grid-row: 1 / 3;
+  font: 500 11px var(--font-mono);
+  color: var(--muted);
+  flex: none;
+  padding-bottom: 4px;
+}
+
+.stack-card__title {
+  font-size: 21px;
+  letter-spacing: -0.04em;
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.08;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stack-card__stack {
+  grid-column: 2;
+  margin-top: 4px;
+  font: 400 10px var(--font-mono);
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 800px) {
+  .project-showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .project-showcase__hint {
+    order: -2;
+  }
+
+  .stack-container {
+    --stack-gap: 54px;
+    --card-height: 100px;
+    position: relative;
+    top: 0;
+    order: -1;
+    margin-bottom: 8px;
+  }
+
+  .stack-card {
+    padding: 0 18px 12px;
+    border-radius: 14px;
+  }
+
+  .stack-card__title {
+    font-size: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preview-panel {
+    animation: none;
+  }
+
+  .stack-card {
+    transition-duration: 0.01ms;
+  }
+}

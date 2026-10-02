@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="810" viewBox="0 0 1440 810">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#171717"/><stop offset="1" stop-color="#070707"/></linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#ffffff" stroke-opacity="0.04"/></pattern>
+  </defs>
+  <rect width="1440" height="810" fill="url(#bg)"/>
+  <rect width="1440" height="810" fill="url(#grid)"/>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="24">
+    <rect x="120" y="150" width="1200" height="520" rx="14" fill="#0b0b0b" stroke="#2a2a2a"/>
+    <line x1="120" y1="202" x2="1320" y2="202" stroke="#2a2a2a"/>
+    <circle cx="152" cy="176" r="6" fill="#666"/><circle cx="174" cy="176" r="6" fill="#333"/><circle cx="196" cy="176" r="6" fill="#333"/>
+    <text x="226" y="183" fill="#8f8f8f" font-size="18">supabase/schema.sql</text>
+    <text x="196" y="262" fill="#3d3d3d" text-anchor="end">1</text><text x="230" y="262" fill="#6b6b6b" xml:space="preserve">-- balances are derived, never edited directly</text><text x="196" y="302" fill="#3d3d3d" text-anchor="end">2</text><text x="230" y="302" fill="#d4d4d4" xml:space="preserve">create trigger sync_balance</text><text x="196" y="342" fill="#3d3d3d" text-anchor="end">3</text><text x="230" y="342" fill="#d4d4d4" xml:space="preserve">  after insert on deduction_transactions</text><text x="196" y="382" fill="#3d3d3d" text-anchor="end">4</text><text x="230" y="382" fill="#d4d4d4" xml:space="preserve">  for each row execute function apply_to_balance();</text><text x="196" y="422" fill="#3d3d3d" text-anchor="end">5</text><text x="230" y="422" fill="#d4d4d4" xml:space="preserve"></text><text x="196" y="462" fill="#3d3d3d" text-anchor="end">6</text><text x="230" y="462" fill="#6b6b6b" xml:space="preserve">-- re-importing the same bank file is idempotent</text><text x="196" y="502" fill="#3d3d3d" text-anchor="end">7</text><text x="230" y="502" fill="#d4d4d4" xml:space="preserve">insert into imports (import_key, bank, month, year)</text><text x="196" y="542" fill="#3d3d3d" text-anchor="end">8</text><text x="230" y="542" fill="#d4d4d4" xml:space="preserve">values ($1, $2, $3, $4)</text><text x="196" y="582" fill="#3d3d3d" text-anchor="end">9</text><text x="230" y="582" fill="#d4d4d4" xml:space="preserve">on conflict (import_key) do update</text><text x="196" y="622" fill="#3d3d3d" text-anchor="end">10</text><text x="230" y="622" fill="#d4d4d4" xml:space="preserve">  set imported_at = now();</text>
+    <text x="120" y="754" fill="#8f8f8f" font-size="20" letter-spacing="4">COOPERATIVE LEDGER · SUPABASE · POSTGRES</text>
+  </g>
+</svg>
