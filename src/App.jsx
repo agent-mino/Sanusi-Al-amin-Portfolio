@@ -1,37 +1,20 @@
-import Nav from './components/Nav';
-import Hero from './components/Hero';
-import Ticker from './components/Ticker';
-import About from './components/About';
-import Experience from './components/Experience';
-import ProjectShowcase from './components/ProjectShowcase';
-import Skills from './components/Skills';
-import Education from './components/Education';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import useReveal from './hooks/useReveal';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import Threshold from './pages/Threshold';
+import DevWorld from './pages/DevWorld';
+import CreativeWorld from './pages/CreativeWorld';
 
 export default function App() {
-  useReveal();
+  const location = useLocation();
 
   return (
-    <>
-      <a className="skip-link" href="#main">Skip to content</a>
-      <div className="noise" aria-hidden="true" />
-      <Nav />
-      <main id="main" tabIndex={-1}>
-        <Hero />
-        <Ticker />
-        <About />
-        <Experience />
-        <section id="projects" className="section container reveal" aria-labelledby="projects-label">
-          <p id="projects-label" className="section-label">03 / SELECTED WORK</p>
-          <ProjectShowcase />
-        </section>
-        <Skills />
-        <Education />
-        <Contact />
-      </main>
-      <Footer />
-    </>
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Threshold />} />
+        <Route path="/dev" element={<DevWorld />} />
+        <Route path="/world" element={<CreativeWorld />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </AnimatePresence>
   );
 }

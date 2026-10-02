@@ -1,0 +1,513 @@
+/* ==========================================================================
+   Creative World — Threshold, CreativeWorld, and world-switcher styles
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Shared tokens for the creative world
+   -------------------------------------------------------------------------- */
+:root {
+  --mino-bg: #0a0a0a;
+  --mino-fg: #f5f5f0;
+  --mino-silver: #c0c0c0;
+  --mino-muted: #666;
+  --mino-line: #1e1e1e;
+  --font-blackletter: 'Pirata One', 'UnifrakturCook', serif;
+}
+
+/* --------------------------------------------------------------------------
+   World-switcher — fixed corner link on /dev
+   -------------------------------------------------------------------------- */
+.world-switcher {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-decoration: none;
+  padding: 10px 14px;
+  border: 1px solid #1e1e1e;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.25s;
+}
+
+.world-switcher:hover {
+  border-color: var(--mino-silver);
+}
+
+.world-switcher__label {
+  font: 400 9px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.world-switcher__name {
+  font: 400 18px var(--font-blackletter);
+  color: var(--mino-silver);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Threshold — /
+   -------------------------------------------------------------------------- */
+.threshold {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  background: #000;
+  overflow: hidden;
+  cursor: default;
+}
+
+.threshold__side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.4s ease;
+  outline: none;
+}
+
+.threshold__side:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.4);
+  outline-offset: -4px;
+}
+
+.threshold__side.is-focused {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.threshold__side.is-dimmed .threshold__content {
+  opacity: 0.3;
+  transition: opacity 0.4s ease;
+}
+
+.threshold__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 48px;
+  transition: opacity 0.4s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.threshold__eyebrow {
+  margin: 0;
+  font: 500 10px var(--font-mono);
+  letter-spacing: 0.2em;
+  color: #555;
+  text-transform: uppercase;
+}
+
+.threshold__eyebrow--world {
+  color: var(--mino-muted);
+}
+
+.threshold__name {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  font: 800 clamp(52px, 7vw, 88px) var(--font-sans);
+  letter-spacing: -0.05em;
+  color: #fff;
+  line-height: 1;
+}
+
+.threshold__enter {
+  margin: 0;
+  font: 400 11px var(--font-mono);
+  letter-spacing: 0.12em;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.threshold__side.is-focused .threshold__enter {
+  color: #888;
+}
+
+.threshold__enter--world {
+  color: var(--mino-muted);
+}
+
+.threshold__side.is-focused .threshold__enter--world {
+  color: var(--mino-silver);
+}
+
+/* subtle grid overlay on the dev side */
+.threshold__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+}
+
+.threshold__wordmark-wrap {
+  width: min(320px, 60vw);
+}
+
+.threshold__wordmark {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 40px rgba(200, 200, 200, 0.08));
+}
+
+.threshold__divider {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  bottom: 10%;
+  width: 1px;
+  background: #1a1a1a;
+  transform: translateX(-50%);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.threshold__divider--dev,
+.threshold__divider--world {
+  background: #333;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+}
+
+/* Mobile: vertical split */
+@media (max-width: 600px) {
+  .threshold {
+    flex-direction: column;
+  }
+
+  .threshold__divider {
+    left: 10%;
+    right: 10%;
+    top: 50%;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+    transform: translateY(-50%);
+  }
+
+  .threshold__wordmark-wrap {
+    width: min(200px, 50vw);
+  }
+
+  .threshold__name {
+    font-size: clamp(36px, 9vw, 56px);
+  }
+
+  .threshold__content {
+    padding: 32px 24px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Creative World — /world
+   -------------------------------------------------------------------------- */
+.world {
+  background: var(--mino-bg);
+  color: var(--mino-fg);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+.world-container {
+  width: min(calc(100% - 48px), 1100px);
+  margin-inline: auto;
+}
+
+.world-label {
+  margin: 0 0 12px;
+  font: 500 10px var(--font-mono);
+  letter-spacing: 0.22em;
+  color: var(--mino-muted);
+  text-transform: uppercase;
+}
+
+.world-heading {
+  margin: 0 0 28px;
+  font: 400 clamp(40px, 6vw, 80px) var(--font-blackletter);
+  color: var(--mino-fg);
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+}
+
+.world-body {
+  margin: 0 0 16px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--mino-silver);
+  max-width: 52ch;
+}
+
+/* ── Hero ── */
+.world-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.world-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(192, 192, 192, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.world-hero__wordmark-wrap {
+  width: min(520px, 80vw);
+  position: relative;
+  z-index: 1;
+}
+
+.world-hero__wordmark {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 4px 60px rgba(200, 200, 200, 0.12));
+}
+
+.world-hero__sub {
+  margin: 0;
+  font: 400 13px var(--font-mono);
+  letter-spacing: 0.2em;
+  color: var(--mino-muted);
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+.world-hero__scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--mino-muted);
+  font-size: 22px;
+  text-decoration: none;
+  animation: float 2.4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ── Identity ── */
+.world-identity {
+  padding: 120px 0;
+  border-top: 1px solid var(--mino-line);
+}
+
+.world-identity__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.world-identity__image-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.world-identity__origin {
+  width: min(380px, 100%);
+  height: auto;
+  filter: brightness(0.9);
+}
+
+@media (max-width: 768px) {
+  .world-identity__layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+/* ── Collection ── */
+.world-collection {
+  padding: 80px 0 120px;
+  border-top: 1px solid var(--mino-line);
+}
+
+.world-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 12px;
+  margin-top: 48px;
+}
+
+.world-grid__item {
+  overflow: hidden;
+  background: #111;
+}
+
+.world-grid__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.world-grid__item:hover img {
+  transform: scale(1.02);
+}
+
+.world-grid__item--tall {
+  grid-row: span 2;
+}
+
+@media (max-width: 640px) {
+  .world-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .world-grid__item--tall {
+    grid-row: span 1;
+  }
+}
+
+/* ── Craft ── */
+.world-craft {
+  padding: 100px 0;
+  border-top: 1px solid var(--mino-line);
+}
+
+.world-craft__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  border: 1px solid var(--mino-line);
+  margin-top: 0;
+}
+
+.world-craft__item {
+  padding: 32px 28px;
+  border-right: 1px solid var(--mino-line);
+  border-bottom: 1px solid var(--mino-line);
+}
+
+.world-craft__item:nth-child(even) {
+  border-right: none;
+}
+
+.world-craft__item:nth-last-child(-n+2) {
+  border-bottom: none;
+}
+
+.world-craft__item-label {
+  margin: 0 0 8px;
+  font: 400 18px var(--font-blackletter);
+  color: var(--mino-fg);
+  letter-spacing: 0.03em;
+}
+
+.world-craft__item-desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--mino-muted);
+}
+
+@media (max-width: 560px) {
+  .world-craft__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .world-craft__item {
+    border-right: none;
+  }
+
+  .world-craft__item:nth-last-child(-n+2) {
+    border-bottom: 1px solid var(--mino-line);
+  }
+
+  .world-craft__item:last-child {
+    border-bottom: none;
+  }
+}
+
+/* ── Crossover ── */
+.world-crossover {
+  padding: 120px 0;
+  border-top: 1px solid var(--mino-line);
+}
+
+.world-crossover__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.world-crossover__line {
+  margin: 0;
+  font: 800 clamp(28px, 4vw, 52px) var(--font-sans);
+  letter-spacing: -0.04em;
+  color: var(--mino-fg);
+}
+
+.world-crossover__link {
+  display: inline-block;
+  font: 500 13px var(--font-mono);
+  letter-spacing: 0.08em;
+  color: var(--mino-silver);
+  text-decoration: none;
+  border-bottom: 1px solid #333;
+  padding-bottom: 2px;
+  transition: border-color 0.25s, color 0.25s;
+  align-self: flex-start;
+}
+
+.world-crossover__link:hover {
+  color: #fff;
+  border-color: var(--mino-silver);
+}
+
+/* ── Footer ── */
+.world-footer {
+  padding: 32px 0;
+  border-top: 1px solid var(--mino-line);
+}
+
+.world-footer .world-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.world-footer__brand {
+  font: 400 14px var(--font-blackletter);
+  color: var(--mino-muted);
+  letter-spacing: 0.08em;
+}
+
+.world-footer__copy {
+  font: 400 11px var(--font-mono);
+  letter-spacing: 0.1em;
+  color: #333;
+}
