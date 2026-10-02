@@ -280,6 +280,14 @@
   gap: 80px;
 }
 
+.edu-current {
+  margin: 0 0 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--text);
+}
+
 .edu-school {
   font: 500 13px var(--font-mono);
   text-transform: uppercase;

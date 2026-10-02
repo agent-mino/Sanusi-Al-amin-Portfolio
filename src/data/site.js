@@ -2,7 +2,7 @@ export const profile = {
   name: 'Al-Amin Sanusi',
   email: 'alaminsanusi13@gmail.com',
   cvUrl: '/Al-Amin-Sanusi-CV.pdf',
-  location: 'Lagos, Nigeria',
+  location: 'London, UK',
 };
 
 export const navLinks = [
@@ -41,7 +41,7 @@ export const experience = [
     ],
   },
   {
-    period: '2025',
+    period: 'May — Jun 2024',
     location: 'Remote',
     role: 'Web Developer Intern',
     company: 'Prodigy InfoTech',
@@ -86,12 +86,14 @@ export const skillGroups = [
 export const education = {
   title: 'Advanced Diploma in',
   emphasis: 'Software Engineering.',
-  school: 'Aptech Computer Education, Nigeria',
-  period: 'Completed 2025–2026',
+  current: 'BSc Information Technology and Business Information Systems · Middlesex University, London · 2026–2027',
+  school: 'Aptech Learning, Lagos',
+  period: '2023–2025',
   detail:
     'Training across Java, Python, .NET, AI & Machine Learning, Cloud Computing, Data Science, Networking and full-stack technologies.',
   certs: [
-    'Mastercard Cybersecurity Virtual Experience · Forage · 2025',
+    'Mastercard Cybersecurity Job Simulation · Forage · 2025',
+    'Web Development · Prodigy InfoTech · 2024',
     'Bournvita Bootcamp · Programming, AR, 3D, Robotics & AI · 2021',
   ],
 };

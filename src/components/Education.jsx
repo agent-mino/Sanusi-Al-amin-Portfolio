@@ -12,6 +12,7 @@ export default function Education() {
         </h2>
       </div>
       <div>
+        <p className="edu-current">Now studying: {education.current}</p>
         <p className="edu-school">{education.school}</p>
         <p>{education.period}</p>
         <p className="muted">{education.detail}</p>
