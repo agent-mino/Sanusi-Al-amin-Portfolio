@@ -213,6 +213,33 @@ main:focus {
   display: none;
 }
 
+/* Hamburger icon; the bars fold into an X while the menu is open. */
+.nav-toggle__bar {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: currentColor;
+  transition:
+    transform 0.25s var(--ease-out),
+    opacity 0.2s;
+}
+
+.nav-toggle__bar + .nav-toggle__bar {
+  margin-top: 5px;
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
 /* ==========================================================================
    Buttons & shared type
    ========================================================================== */
@@ -278,7 +305,13 @@ main:focus {
    ========================================================================== */
 @media (max-width: 800px) {
   .nav-toggle {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 38px;
+    padding: 0;
   }
 
   .nav-links {
@@ -289,7 +322,7 @@ main:focus {
     right: -24px;
     flex-direction: column;
     gap: 0;
-    background: rgba(5, 5, 5, 0.97);
+    background: var(--bg);
     border-bottom: 1px solid var(--line);
   }
 

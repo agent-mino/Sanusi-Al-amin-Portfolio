@@ -36,9 +36,12 @@ export default function Nav() {
             className="nav-toggle"
             aria-expanded={open}
             aria-controls="nav-links"
+            aria-label={open ? 'Close menu' : 'Open menu'}
             onClick={() => setOpen((value) => !value)}
           >
-            {open ? 'Close' : 'Menu'}
+            <span className="nav-toggle__bar" aria-hidden="true" />
+            <span className="nav-toggle__bar" aria-hidden="true" />
+            <span className="nav-toggle__bar" aria-hidden="true" />
           </button>
         </div>
       </nav>

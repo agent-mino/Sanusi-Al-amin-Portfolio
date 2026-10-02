@@ -31,7 +31,7 @@ export const projects = [
       'Built-in safety check that refuses harmful prompts before they hit the model.',
     ],
     image: '/projects/academai.svg',
-    liveUrl: 'https://academai.vercel.app',
+    liveUrl: 'https://academai-assistant.vercel.app',
     repoUrl: repo('Academai'),
   },
   {
@@ -92,7 +92,8 @@ export const projects = [
     stack: ['React', 'Context API', 'CSS'],
     highlights: [
       'Cart and feedback state shared through React Context.',
-      'Reusable card, carousel and category components fed from a typed product catalogue.',
+      'Cart saved to localStorage so it survives refreshes, with tests in CI.',
+      'Reusable card, carousel and category components fed from a structured product catalogue.',
     ],
     image: '/projects/brightworld.jpg',
     liveUrl: 'https://bright-world.vercel.app',
