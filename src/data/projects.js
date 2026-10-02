@@ -45,11 +45,43 @@ export const projects = [
     stack: ['Next.js', 'TypeScript', 'Supabase', 'PostgreSQL', 'SheetJS'],
     highlights: [
       'Append-only transaction ledger; balances maintained by a Postgres trigger, never edited directly.',
-      'Header-detecting Excel parser handles different banks’ formats — validated on 356 rows across 3 sheets.',
+      'Header-detecting Excel parser handles different banks\' formats — validated on 356 rows across 3 sheets.',
       'Idempotent re-imports, duplicate-deduction guard and role-based member access requests.',
     ],
     image: '/projects/ledger.svg',
     repoUrl: repo('FRSC-Contribution-Tracker'),
+  },
+  {
+    id: 'elibrary',
+    title: 'E-Library Admin',
+    summary:
+      'Admin dashboard for managing an e-library\'s books, categories and registered readers, backed by a FastAPI + MongoDB REST API.',
+    role: 'Frontend (group project)',
+    year: '2025',
+    stack: ['Next.js 15', 'TypeScript', 'Tailwind CSS', 'FastAPI', 'MongoDB'],
+    highlights: [
+      'JWT session guard on every signed-in page; an expired token triggers automatic sign-out with a message.',
+      'Debounced server-side search for books by title or author; category deletion blocked while books still exist.',
+      'Human-readable FastAPI validation errors and a distinct unreachable-API error state.',
+    ],
+    image: '/projects/elibrary.png',
+    repoUrl: repo('e-library-admin'),
+  },
+  {
+    id: 'currensee',
+    title: 'CurrenSee',
+    summary:
+      'Cross-platform mobile app (Android & iOS) for real-time currency conversion, live exchange rates and rate-alert push notifications.',
+    role: 'Full-stack · Flutter + Node.js',
+    year: '2025',
+    stack: ['Flutter', 'Dart', 'Node.js', 'Express', 'MySQL', 'Firebase', 'FCM'],
+    highlights: [
+      'Converts between 160+ currencies via ExchangeRate-API; every conversion is logged per-user in MySQL.',
+      'Rate alerts trigger FCM push notifications when a currency pair crosses a set threshold.',
+      'Nine screens with drawer navigation, all backed by REST endpoints in a Node.js/Express API.',
+    ],
+    image: '/projects/currensee.svg',
+    repoUrl: repo('Currensee'),
   },
   {
     id: 'stablecoin',
@@ -82,6 +114,54 @@ export const projects = [
     ],
     image: '/projects/raffle.svg',
     repoUrl: repo('Raffle'),
+  },
+  {
+    id: 'moodNFT',
+    title: 'MoodNFT',
+    summary:
+      'On-chain ERC-721 NFT whose SVG artwork is generated and stored entirely on-chain — no IPFS, no external dependency.',
+    role: 'Solo · smart contracts',
+    year: '2025',
+    stack: ['Solidity', 'Foundry', 'Base64', 'ERC-721'],
+    highlights: [
+      'Token URI is generated entirely on-chain: SVG → base64 → JSON → base64, rendering in any wallet.',
+      'flipMood() toggles between HAPPY and SAD; only the owner or approved operator can call it.',
+      'BasicNft included alongside as an IPFS-hosted reference implementation.',
+    ],
+    image: '/projects/moodNFT.svg',
+    repoUrl: repo('MoodNFT'),
+  },
+  {
+    id: 'fundme',
+    title: 'Fund Me',
+    summary:
+      'Crowdfunding smart contract with a $5 USD minimum enforced by a live Chainlink price feed — no hardcoded ETH amount.',
+    role: 'Solo · smart contracts',
+    year: '2025',
+    stack: ['Solidity', 'Foundry', 'Chainlink Price Feeds'],
+    highlights: [
+      'Chainlink AggregatorV3Interface converts ETH to USD on-chain at time of funding.',
+      'cheaperWithdraw caches the funders array length to avoid repeated SLOAD costs in the loop.',
+      'Fork tests run against a live Sepolia price-feed snapshot to verify real-world behaviour.',
+    ],
+    image: '/projects/fundme.svg',
+    repoUrl: repo('foundry-fund-me'),
+  },
+  {
+    id: 'faceattendance',
+    title: 'Face Attendance',
+    summary:
+      'Webcam attendance system that enrols faces once and automatically checks people in throughout the day.',
+    role: 'Solo · Python',
+    year: '2025',
+    stack: ['Python', 'OpenCV', 'face_recognition', 'SQLite'],
+    highlights: [
+      'One check-in per person per day via a UNIQUE (person_id, day) constraint — later matches update last_seen.',
+      'Nearest-embedding matching compares all enrolled samples; rejects strangers below a configurable tolerance.',
+      'Embeddings stored as raw float64 bytes — no pickle, so reading the database cannot execute code.',
+    ],
+    image: '/projects/faceattendance.svg',
+    repoUrl: repo('face-attendance-system'),
   },
   {
     id: 'brightworld',

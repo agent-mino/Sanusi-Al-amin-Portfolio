@@ -70,6 +70,52 @@ const covers = {
       '}',
     ],
   },
+  currensee: {
+    label: 'CURRENSEE · FLUTTER · FIREBASE · MYSQL',
+    file: 'lib/main.dart',
+    code: [
+      'Future<void> convertCurrency() async {',
+      '  final res = await http.get(Uri.parse(',
+      '    "$_api/convert?base=$selectedBase"',
+      '    "&target=$selectedTarget"',
+      '    "&amount=${amountController.text}"));',
+      '  final data = jsonDecode(res.body);',
+      '  setState(() => convertedAmount =',
+      '    "${data["convertedAmount"]} ${data["target"]}");',
+      '}',
+    ],
+  },
+  fundme: {
+    label: 'FUND ME · CHAINLINK PRICE FEEDS · SOLIDITY',
+    file: 'src/FundMe.sol',
+    code: [
+      'function fund() public payable {',
+      '    require(',
+      '        msg.value.getConversionRate(s_priceFeed)',
+      '            >= MINIMUM_USD,',
+      '        "You need to spend more ETH!"',
+      '    );',
+      '    s_addressToAmountFunded[msg.sender]',
+      '        += msg.value;',
+      '    s_funders.push(msg.sender);',
+      '}',
+    ],
+  },
+  faceattendance: {
+    label: 'FACE ATTENDANCE · OPENCV · SQLITE',
+    file: 'attend.py',
+    code: [
+      'def recognise(embedding, enrolled):',
+      '    dists = [(np.linalg.norm(embedding - e), n)',
+      '             for n, e in enrolled]',
+      '    dist, name = min(dists)',
+      '    return name if dist <= TOLERANCE else "Unknown"',
+      '',
+      '# one INSERT OR IGNORE per person per day;',
+      '# nearest embedding wins only if dist <= tolerance',
+      '# raw float64 bytes stored — no pickle, no code exec',
+    ],
+  },
 };
 
 const W = 1440;
@@ -104,3 +150,32 @@ for (const [id, { label, file, code }] of Object.entries(covers)) {
 `;
   writeFileSync(new URL(`../public/projects/${id}.svg`, import.meta.url), svg);
 }
+
+// Custom MoodNFT cover — shows the actual happy/sad on-chain SVG faces
+const moodSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#171717"/><stop offset="1" stop-color="#070707"/></linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#ffffff" stroke-opacity="0.04"/></pattern>
+  </defs>
+  <rect width="${W}" height="${H}" fill="url(#bg)"/>
+  <rect width="${W}" height="${H}" fill="url(#grid)"/>
+  <g transform="translate(260,180) scale(1.6)">
+    <circle cx="100" cy="100" fill="#04a1f6" r="78" stroke="#2a2a2a" stroke-width="2"/>
+    <circle cx="70" cy="82" r="12" fill="#0d0d0d"/>
+    <circle cx="127" cy="82" r="12" fill="#0d0d0d"/>
+    <path d="m138.81 116.53c.69 26.17-64.11 42-81.52-.73" fill="none" stroke="#0d0d0d" stroke-width="3"/>
+  </g>
+  <g transform="translate(860,180) scale(1.6)">
+    <circle cx="100" cy="100" fill="#f9d84a" r="78" stroke="#2a2a2a" stroke-width="2"/>
+    <circle cx="70" cy="82" r="12" fill="#0d0d0d"/>
+    <circle cx="127" cy="82" r="12" fill="#0d0d0d"/>
+    <path d="M65 130 Q100 108 135 130" fill="none" stroke="#0d0d0d" stroke-width="3"/>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <text x="420" y="572" fill="#555" font-size="22" text-anchor="middle" letter-spacing="3">HAPPY</text>
+    <text x="1020" y="572" fill="#555" font-size="22" text-anchor="middle" letter-spacing="3">SAD</text>
+    <text x="720" y="648" fill="#3d3d3d" font-size="19" text-anchor="middle">tokenURI() &#x2192; data:application/json;base64,&#x2026;</text>
+    <text x="120" y="${H - 56}" fill="#8f8f8f" font-size="20" letter-spacing="4">MOOD NFT &#xB7; ON-CHAIN SVG &#xB7; ERC-721 &#xB7; SOLIDITY</text>
+  </g>
+</svg>`;
+writeFileSync(new URL('../public/projects/moodNFT.svg', import.meta.url), moodSvg);
